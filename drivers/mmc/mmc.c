@@ -945,7 +945,10 @@ retry_scr:
 	err = sd_switch(mmc, SD_SWITCH_SWITCH, 0, 1, (u8 *)switch_status);
 
 	if (err)
-		return err;
+        {	
+         	printf("unable to switch SD_HIGHSPEED: %d\n", err);
+		return 0;
+	}
 
 	if ((__be32_to_cpu(switch_status[4]) & 0x0f000000) == 0x01000000)
 		mmc->card_caps |= MMC_MODE_HS;
